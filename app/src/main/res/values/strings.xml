@@ -13,4 +13,6 @@
     <string name="name_hint">Name of the product*</string>
     <string name="marked_fields">Fields marked with * are mandarory</string>
     <string name="no_bags">No shopping bags to show.</string>
+    <string name="facebook_app_id">672699442907366</string>
+
 </resources>

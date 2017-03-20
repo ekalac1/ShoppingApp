@@ -18,6 +18,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildTypes.each {
+        it.buildConfigField 'String', 'PLACES_API_KEY', PLACES_API_KEY }
 }
 
 buildscript {
@@ -32,6 +34,8 @@ buildscript {
 repositories {
     mavenCentral()
 }
+
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
