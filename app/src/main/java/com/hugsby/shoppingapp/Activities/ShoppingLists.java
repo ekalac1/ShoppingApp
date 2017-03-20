@@ -15,7 +15,9 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.hugsby.shoppingapp.OnSwipeTouchListener;
 import com.hugsby.shoppingapp.ProductsAdapter;
 import com.hugsby.shoppingapp.R;
 import com.hugsby.shoppingapp.RealmObjects.ShoppingBag;
@@ -40,6 +42,8 @@ public class ShoppingLists extends AppCompatActivity {
     ProductsAdapter productsAdapter;
     ListView list;
 
+    RealmResults<ShoppingBag> bags;
+
     String name;
 
 
@@ -51,6 +55,9 @@ public class ShoppingLists extends AppCompatActivity {
         mToogle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name);
 
         final TextView proba = (TextView)findViewById(R.id.message);
+
+        final TextView total = (TextView)findViewById(R.id.total);
+        total.setText("");
 
         mDrawerLayout.addDrawerListener(mToogle);
         mToogle.syncState();
@@ -77,8 +84,7 @@ public class ShoppingLists extends AppCompatActivity {
 
         realm.beginTransaction();
 
-
-        final RealmResults<ShoppingBag> bags = realm.where(ShoppingBag.class).findAll();
+        bags = realm.where(ShoppingBag.class).findAll();
 
         for (ShoppingBag bag:bags
              ) {
@@ -90,6 +96,27 @@ public class ShoppingLists extends AppCompatActivity {
         {
             proba.setText(R.string.no_bags);
         }
+        else
+        {
+            shoppingProducts.clear();
+            shoppingProducts.addAll(bags.last().getShoppingList());
+            ((BaseAdapter)list.getAdapter()).notifyDataSetChanged();
+            proba.setVisibility(View.GONE);
+            name=bags.last().getName();
+
+            float total_price=0;
+
+            for (ShoppingProduct p : bags.last().getShoppingList())
+            {
+                if (!p.getQuantity().equals("unknown"))
+                {
+                    total_price+=Float.valueOf(p.getQuantity())*Float.valueOf(p.getPrice());
+                }
+            }
+
+            total.setText("Total: "+total_price);
+
+        }
 
         realm.commitTransaction();
 
@@ -100,6 +127,29 @@ public class ShoppingLists extends AppCompatActivity {
                 intent.putExtra("name", name);
                 intent.putExtra("position", i);
                 startActivity(intent);
+            }
+        });
+
+
+        list.setOnTouchListener( new OnSwipeTouchListener()
+        {
+            public boolean onSwipeTop() {
+
+               int i= list.getSelectedItemPosition();
+                Toast.makeText(getApplicationContext(), "top"+i, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            public boolean onSwipeRight() {
+                Toast.makeText(getApplicationContext(), "right", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            public boolean onSwipeLeft() {
+                Toast.makeText(getApplicationContext(), "left", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            public boolean onSwipeBottom() {
+                Toast.makeText(getApplicationContext(), "bottom", Toast.LENGTH_SHORT).show();
+                return true;
             }
         });
 
@@ -139,6 +189,18 @@ public class ShoppingLists extends AppCompatActivity {
 
                         proba.setText(item.getTitle()+" "+shoppingProducts.size());
 
+                        float total_price=0;
+
+                        for (ShoppingProduct p : bag.getShoppingList())
+                        {
+                            if (!p.getQuantity().equals("unknown"))
+                            {
+                                total_price+=Float.valueOf(p.getQuantity())*Float.valueOf(p.getPrice());
+                            }
+                        }
+
+                        total.setText("Total: "+total_price);
+
                         mDrawerLayout.closeDrawer(Gravity.LEFT);
 
                         realm.commitTransaction();
@@ -164,6 +226,11 @@ public class ShoppingLists extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.delete:
+                realm.beginTransaction();
+                ShoppingBag bag = realm.where(ShoppingBag.class).equalTo("name", name).findFirst();
+                bag.deleteFromRealm();
+                realm.commitTransaction();
+                startActivity(new Intent(getApplicationContext(), ShoppingLists.class));
                 break;
         }
 
@@ -202,8 +269,19 @@ public class ShoppingLists extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
+
+
         inflater.inflate(R.menu.optinos_menu, menu);
+        if (bags.size()==0)
+        {
+            menu.getItem(0).setVisible(false);
+            menu.getItem(1).setVisible(false);
+        }
+        else
+        {
+            menu.getItem(0).setVisible(true);
+            menu.getItem(1).setVisible(true);
+        }
         return true;
     }
-
 }

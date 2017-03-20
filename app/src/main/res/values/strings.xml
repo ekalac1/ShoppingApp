@@ -11,7 +11,7 @@
     <string name="added_shopping_bag">Shopping bag added</string>
     <string name="add_new_title">Add new item to shopping bag</string>
     <string name="name_hint">Name of the product*</string>
-    <string name="marked_fields">Fields marked with * are mandarory</string>
+    <string name="marked_fields">Fields marked with * are mandatory</string>
     <string name="no_bags">No shopping bags to show.</string>
     <string name="facebook_app_id">672699442907366</string>
 

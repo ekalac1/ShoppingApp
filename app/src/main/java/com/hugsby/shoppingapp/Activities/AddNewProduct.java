@@ -1,10 +1,14 @@
 package com.hugsby.shoppingapp.Activities;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.hugsby.shoppingapp.R;
@@ -43,6 +47,18 @@ public class AddNewProduct extends AppCompatActivity {
         final EditText quantityEdit = (EditText) findViewById(R.id.quantity);
         final EditText priceEdit = (EditText) findViewById(R.id.expected_price);
         final EditText unitEdit = (EditText)findViewById(R.id.unit);
+        final Button addPhoto = (Button)findViewById(R.id.take_photo);
+
+        addPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                        startActivityForResult(takePictureIntent, 1);
+
+                }
+            }
+        });
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,10 +96,24 @@ public class AddNewProduct extends AppCompatActivity {
                     bag.getShoppingList().add(p);
                     realm.commitTransaction();
                     Toast.makeText(getApplicationContext(), "Product added", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), ShoppingLists.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 }
             }
         });
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            final ImageView mImageView = (ImageView)findViewById(R.id.photo);
+            mImageView.setImageBitmap(imageBitmap);
+        }
     }
 }

@@ -19,7 +19,7 @@ android {
         }
     }
     buildTypes.each {
-        it.buildConfigField 'String', 'PLACES_API_KEY', PLACES_API_KEY }
+        it.buildConfigField 'String', 'PLACES_API_KEY', PLACES_API_KEY}
 }
 
 buildscript {
@@ -29,6 +29,7 @@ buildscript {
     dependencies {
         classpath "io.realm:realm-gradle-plugin:3.0.0"
     }
+
 }
 
 repositories {

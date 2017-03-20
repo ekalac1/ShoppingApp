@@ -28,7 +28,7 @@ public class ProductsAdapter extends ArrayAdapter<ShoppingProduct> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        LinearLayout newView;
+        final LinearLayout newView;
         if (convertView == null) {
             newView = new LinearLayout(getContext());
             String inflater = Context.LAYOUT_INFLATER_SERVICE;
@@ -41,11 +41,12 @@ public class ProductsAdapter extends ArrayAdapter<ShoppingProduct> {
         }
 
 
-        ShoppingProduct product = getItem(position);
+        final ShoppingProduct product = getItem(position);
 
         TextView name = (TextView)newView.findViewById(R.id.product_name);
 
         name.setText(product.getName());
+
 
 
         return newView;

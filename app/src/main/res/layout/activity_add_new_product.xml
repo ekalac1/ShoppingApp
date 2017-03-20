@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_add_new_product"
     android:layout_width="match_parent"
@@ -24,13 +25,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/name_layout"
-        android:id="@+id/linear_layout"
-        android:layout_marginTop="20dp">
+        android:id="@+id/linear_layout">
         <android.support.design.widget.TextInputLayout
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:id="@+id/expected_price_layout">
             <EditText android:id="@+id/expected_price"
@@ -44,7 +43,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:id="@+id/quantity_layout">
             <EditText android:id="@+id/quantity"
@@ -57,7 +55,6 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:layout_weight="0.5"
             android:id="@+id/unit_layout">
@@ -69,6 +66,15 @@
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="150dp"
+        android:text="Take photo"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:id="@+id/take_photo"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"/>
 
     <Button
         android:text="@string/add"
@@ -89,6 +95,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/textView2" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:id="@+id/photo"
+        android:background="@drawable/noimagefound"
+        android:layout_toRightOf="@id/take_photo"
+        android:layout_below="@+id/textView2"/>
 
 
 </RelativeLayout>

@@ -9,7 +9,7 @@ public class ShoppingBag extends RealmObject {
 
 
     private String name;
-    public RealmList<ShoppingProduct> shoppingList;
+    private RealmList<ShoppingProduct> shoppingList;
 
     public ShoppingBag(String name)
     {

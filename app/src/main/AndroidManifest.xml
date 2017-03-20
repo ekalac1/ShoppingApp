@@ -7,6 +7,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:name=".ShoppingApplication"
         android:allowBackup="true"
@@ -28,8 +31,9 @@
         <activity
             android:name=".Activities.AddNewList"
             android:parentActivityName=".Activities.ShoppingLists"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize"></activity>
-        <activity android:name=".Activities.AddNewProduct" />
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize"/>
+        <activity android:name=".Activities.AddNewProduct"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -38,7 +42,7 @@
         <activity
             android:name=".Activities.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".Activities.ProductDetails"></activity>
+        <activity android:name=".Activities.ProductDetails"/>
     </application>
 
 </manifest>

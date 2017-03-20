@@ -17,14 +17,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/product_list"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_marginBottom="30dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hello World!"
             android:id="@+id/message"
+            android:textSize="20sp"
             android:layout_centerInParent="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello World!"
+            android:id="@+id/total"
+            android:textSize="25sp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"/>
 
     </RelativeLayout>
     <android.support.design.widget.NavigationView
